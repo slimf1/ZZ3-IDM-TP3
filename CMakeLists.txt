@@ -7,7 +7,7 @@ find_package ( Threads )
 
 # C++ Warning Level #-------------------------------------------------------------------------------
 if ( CMAKE_COMPILER_IS_GNUCXX )
- set ( CMAKE_CXX_FLAGS "-Wall -pedantic ${CMAKE_CXX_FLAGS}" )
+ set ( CMAKE_CXX_FLAGS "-Wall -pedantic -O2 ${CMAKE_CXX_FLAGS}" )
 endif()
 
 # C++11 #-------------------------------------------------------------------------------------------
@@ -39,35 +39,28 @@ endif ()
 message ( STATUS "Compiler flags: ${CMAKE_CXX_FLAGS}" )
 
 # Sources #-----------------------------------------------------------------------------------------
-include_directories(include)
-
-set ( ZZ3_HEADERS
-    )
-
-set ( ZZ3_SOURCES
-      src/testRandom.cpp
-    )
-
-set ( ZZ3_HEADERS_TEST
-    )
-
-set ( ZZ3_SOURCES_TEST
-    )
-
+include_directories( include/ )
 include_directories ( src/ )
 link_directories( lib/ )
 
 # Executables #-------------------------------------------------------------------------------------
-add_executable ( ${CMAKE_PROJECT_NAME}_testRandom
-                 ${ZZ3_HEADERS}
-                 ${ZZ3_SOURCES}
-                 ${ZZ3_HEADERS_TEST}
-                 ${ZZ3_SOURCES_TEST}
-               )
+add_executable ( ${CMAKE_PROJECT_NAME}_q2_q3
+                src/testRandom.cpp
+                )
 
-target_link_libraries(${CMAKE_PROJECT_NAME}_testRandom CLHEP-Random-2.1.0.0)
+add_executable ( ${CMAKE_PROJECT_NAME}_q4
+                src/monteCarloPi.cpp
+                src/monteCarloPi.hpp
+                src/monteCarloMain.cpp
+                )
+
+target_link_libraries(${CMAKE_PROJECT_NAME}_q2_q3 CLHEP-Random-2.1.0.0)
+target_link_libraries(${CMAKE_PROJECT_NAME}_q4 CLHEP-Random-2.1.0.0)
 
 # Build #-------------------------------------------------------------------------------------------
 
-set_target_properties ( ${CMAKE_PROJECT_NAME}_testRandom PROPERTIES LINKER_LANGUAGE C )
-target_link_libraries ( ${CMAKE_PROJECT_NAME}_testRandom ${CMAKE_THREAD_LIBS_INIT} )
+set_target_properties ( ${CMAKE_PROJECT_NAME}_q2_q3 PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( ${CMAKE_PROJECT_NAME}_q2_q3 ${CMAKE_THREAD_LIBS_INIT} )
+
+set_target_properties ( ${CMAKE_PROJECT_NAME}_q4 PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( ${CMAKE_PROJECT_NAME}_q4 ${CMAKE_THREAD_LIBS_INIT} )
