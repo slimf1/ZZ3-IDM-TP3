@@ -6,7 +6,7 @@ Troisième TP d'ingénierie des modèles et simulation, basé sur la bibliothèq
 
 ## Compilation
 Le projet requiert CMake version 2.8.9 ou plus pour la compilation.
-Dans le dossier source, on compilera le projet avec les commandes suivantes :
+Dans le dossier racine du projet, on compilera le projet avec les commandes suivantes :
 ```bash
 mkdir build
 cd build
@@ -18,3 +18,5 @@ make
 * Rapport
 * Le reste
 * Etendre ce readme
+* faire des schémas pour les dernières questions, cf. cours pour expliquer le séquence splitting
+* rapport : une partie par question

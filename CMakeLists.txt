@@ -40,7 +40,6 @@ message ( STATUS "Compiler flags: ${CMAKE_CXX_FLAGS}" )
 
 # Sources #-----------------------------------------------------------------------------------------
 include_directories( include/ )
-include_directories ( src/ )
 link_directories( lib/ )
 
 # Executables #-------------------------------------------------------------------------------------
@@ -50,7 +49,7 @@ add_executable ( ${CMAKE_PROJECT_NAME}_q2_q3
 
 add_executable ( ${CMAKE_PROJECT_NAME}_q4
                 src/monteCarloPi.cpp
-                src/monteCarloPi.hpp
+                include/monteCarloPi.hpp
                 src/monteCarloMain.cpp
                 )
 
