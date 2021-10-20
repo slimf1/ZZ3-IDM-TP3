@@ -20,3 +20,5 @@ make
 * Etendre ce readme
 * faire des schémas pour les dernières questions, cf. cours pour expliquer le séquence splitting
 * rapport : une partie par question
+* expliquer l'archi du projet (les headers sont dans include, génère un exe par question...)
+* utiliser l'entrée standard pour les inputs ! état du générateur etc
