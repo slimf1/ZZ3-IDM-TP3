@@ -35,7 +35,7 @@ void loadPiExperimentFromFile(uint64_t points, const std::string& engineStatusFi
     CLHEP::MTwistEngine engine;
 
     engine.restoreStatus(engineStatusFile.c_str());
-    outputStream << piExperiment(points, engine) << "\n";
+    outputStream << piExperiment(points, engine) << " " << engineStatusFile << "\n";
 }
 
 pi_sim_result_t piReplications(uint64_t points, uint32_t replications) {

@@ -26,3 +26,28 @@ make
 * On a testé avec les fichiers de conf séparés d'un tirage, les résultats étaient similaire car l'état du générateur restait quasiment le même... 
 Cependant, avec les fichiers de confs séparés d'un milliard, les résultats sont différents.
 utiliser les mots répétabilité, stochastique, 
+
+slfakani@turing:/mnt/local.isima.fr/slfakani/ZZ3-IDM-TP3/build$ ./simPiThreads mtstatus_2_{0..9}.conf 3.14154 mtstatus_2_4.conf
+3.14161 mtstatus_2_7.conf
+3.14159 mtstatus_2_6.conf
+3.14163 mtstatus_2_1.conf
+3.1415 mtstatus_2_9.conf
+3.14158 mtstatus_2_2.conf
+3.14173 mtstatus_2_0.conf
+3.14154 mtstatus_2_8.conf
+3.14166 mtstatus_2_5.conf
+3.14151 mtstatus_2_3.conf
+slfakani@turing:/mnt/local.isima.fr/slfakani/ZZ3-IDM-TP3/build$ ./simPiThreads mtstatus_2_{0..9^Cconf 
+
+lfakani@turing:/mnt/local.isima.fr/slfakani/ZZ3-IDM-TP3/build$ ./simPiThreads mtstatus{0..9}.conf 
+3.14158 mtstatus1.conf
+3.14158 mtstatus2.conf
+3.14158 mtstatus7.conf
+3.14158 mtstatus0.conf
+3.14158 mtstatus3.conf
+3.14158 mtstatus6.conf
+3.14158 mtstatus9.conf
+3.14158 mtstatus5.conf
+3.14158 mtstatus4.conf
+3.14158 mtstatus8.conf
+slfakani@turing:/mnt/local.isima.fr/slfakani/ZZ3-IDM-TP3/build$ ^C
