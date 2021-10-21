@@ -11,9 +11,9 @@ struct pi_sim_result_t {
     double std_dev;
 };
 
-double pi_experiment(uint64_t points, CLHEP::HepRandomEngine& engine);
-pi_sim_result_t pi_replications(uint64_t points, 
-                                uint32_t replications);
+double piExperiment(uint64_t points, CLHEP::HepRandomEngine& engine);
+void loadPiExperimentFromFile(uint64_t points, const std::string& engineStatusFile, std::ostream& outputStream);
+pi_sim_result_t piReplications(uint64_t points, uint32_t replications);
 
 } // namespace idm
 

@@ -22,3 +22,7 @@ make
 * rapport : une partie par question
 * expliquer l'archi du projet (les headers sont dans include, génère un exe par question...)
 * utiliser l'entrée standard pour les inputs ! état du générateur etc
+* montrer qu'on a le même résultats pour 10 replications avec & sans restoreStatus
+* On a testé avec les fichiers de conf séparés d'un tirage, les résultats étaient similaire car l'état du générateur restait quasiment le même... 
+Cependant, avec les fichiers de confs séparés d'un milliard, les résultats sont différents.
+utiliser les mots répétabilité, stochastique, 

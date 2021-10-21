@@ -37,8 +37,15 @@ add_executable ( ${CMAKE_PROJECT_NAME}_q4
                 src/monteCarloMain.cpp
                 )
 
+add_executable ( simPi
+                src/monteCarloPi.cpp
+                include/monteCarloPi.hpp
+                src/simPi.cpp
+                )
+
 target_link_libraries(${CMAKE_PROJECT_NAME}_q2_q3 CLHEP-Random-2.1.0.0)
 target_link_libraries(${CMAKE_PROJECT_NAME}_q4 CLHEP-Random-2.1.0.0)
+target_link_libraries(simPi CLHEP-Random-2.1.0.0)
 
 # Build #-------------------------------------------------------------------------------------------
 
@@ -47,3 +54,6 @@ target_link_libraries ( ${CMAKE_PROJECT_NAME}_q2_q3 ${CMAKE_THREAD_LIBS_INIT} )
 
 set_target_properties ( ${CMAKE_PROJECT_NAME}_q4 PROPERTIES LINKER_LANGUAGE C )
 target_link_libraries ( ${CMAKE_PROJECT_NAME}_q4 ${CMAKE_THREAD_LIBS_INIT} )
+
+set_target_properties ( simPi PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( simPi ${CMAKE_THREAD_LIBS_INIT} )

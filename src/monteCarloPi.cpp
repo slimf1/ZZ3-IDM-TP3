@@ -3,6 +3,7 @@
 #include <sstream>
 #include <numeric>
 #include <iostream>
+#include <string>
 
 namespace idm {
 
@@ -10,7 +11,7 @@ namespace idm {
  * 
  * 
  */
-double pi_experiment(uint64_t points, CLHEP::HepRandomEngine& engine) {
+double piExperiment(uint64_t points, CLHEP::HepRandomEngine& engine) {
     
     uint64_t inCircle = 0;                    // Nombre de points dans le cercle
     CLHEP::RandFlat flatDistribution(engine); // Distribution uniforme
@@ -26,10 +27,18 @@ double pi_experiment(uint64_t points, CLHEP::HepRandomEngine& engine) {
         }
     }
 
-    return inCircle / static_cast<double>(points);
+    return 4 * inCircle / static_cast<double>(points);
 }
 
-pi_sim_result_t pi_replications(uint64_t points, uint32_t replications) {
+void loadPiExperimentFromFile(uint64_t points, const std::string& engineStatusFile, std::ostream& outputStream) {
+    
+    CLHEP::MTwistEngine engine;
+
+    engine.restoreStatus(engineStatusFile.c_str());
+    outputStream << piExperiment(points, engine) << "\n";
+}
+
+pi_sim_result_t piReplications(uint64_t points, uint32_t replications) {
 
     std::vector<double> results(replications);
     CLHEP::MTwistEngine engine;
@@ -47,7 +56,7 @@ pi_sim_result_t pi_replications(uint64_t points, uint32_t replications) {
 
         std::cout << "Exp:" << "\n";
         // Résultat de l'expérience
-        results[i] = pi_experiment(points, engine);
+        results[i] = piExperiment(points, engine);
 
         // If verbose... ? 
         std::cout << "Exp[" << i << "]: " << results[i] << "\n";
