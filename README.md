@@ -51,3 +51,6 @@ lfakani@turing:/mnt/local.isima.fr/slfakani/ZZ3-IDM-TP3/build$ ./simPiThreads mt
 3.14158 mtstatus4.conf
 3.14158 mtstatus8.conf
 slfakani@turing:/mnt/local.isima.fr/slfakani/ZZ3-IDM-TP3/build$ ^C
+
+Expliquer les méthodes utilisées dans chaque fonction (eg. split q4,q5)
+cf cours
