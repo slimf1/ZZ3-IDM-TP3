@@ -1,5 +1,6 @@
 #include <iostream>
 #include <set>
+#include <mutex>
 #include <vector>
 #include <thread>
 #include "CLHEP/Random/Randomize.h"
@@ -24,45 +25,45 @@ uint64_t randomStringTries(std::string_view target, std::string_view alphabet, i
             ss << randomCharFromString(alphabet, engine);
         }
         ++count;
-        // if (count % 1000 == 0) {
-        //     std::cout << ss.str() << "\n";
-        // }
     } while (ss.str() != target);
 
     return count;
 }
 
-int main() {
-    const int threadCount = 10;
-    std::stringstream asciiCharsetBuilder;
-    std::string asciiCharset;
+void threadedExperiments(std::string_view target, std::string_view alphabet, uint32_t threadCount) {
+    
     std::vector<std::thread> threads(threadCount);
+    uint32_t i;
 
-    for(char c = 'a'; c <= 'z'; ++c) {
-        asciiCharsetBuilder << c;
-    }
-    asciiCharsetBuilder << "'" << " ";
-    asciiCharset = asciiCharsetBuilder.str();
+    std::cout << "Target = '" << target << "'\n";
 
-    for(int i = 0; i < 100; ++i) {
-        // std::cout << randomStringTries("GATTACA", "AGCT") << "\n";
-    }
-
-    for(int i = 0; i < 1; ++i) {
-        // std::cout << randomStringTries("le hasard n'ecrit pas de programme ou de genes", asciiCharset);
-    }
-
-    for(int i = 0; i < threadCount; ++i) {
-        // Init avec un fichier différent
-        // threads[i] = std::thread(randomStringTries, "le hasard n'ecrit pas de programme ou de genes", asciiCharset, i);
-        threads[i] = std::thread([&](std::string_view s, std::string_view alphabet, int seed) {
-            std::cout << randomStringTries(s, alphabet, seed) << "\n";
-        }, "le ha", asciiCharset, i);
+    for (i = 0; i < threadCount; ++i) {
+        threads[i] = std::thread([](std::string_view target, std::string_view alphabet, uint32_t seed) {
+            static std::mutex mutexPrint;
+            auto tries = randomStringTries(target, alphabet, seed);
+            std::lock_guard<std::mutex> guard(mutexPrint);
+            std::cout << "[" << seed << "] " << tries << "\n";
+            mutexPrint.unlock();
+        }, target, alphabet, i);
     }
 
     for(auto& thread : threads) {
         thread.join();
     }
 
-    // std::cout << asciiCharset;
+    std::cout << "\n\n";
+}
+
+int main() {
+    std::stringstream asciiCharsetBuilder;
+
+    for(char c = 'a'; c <= 'z'; ++c) {
+        asciiCharsetBuilder << c;
+    }
+    asciiCharsetBuilder << "'" << " ";
+
+    threadedExperiments("GATTACA", "AGCT", 100);
+    threadedExperiments("le ha", asciiCharsetBuilder.str(), 10);
+
+    return EXIT_SUCCESS;
 }
