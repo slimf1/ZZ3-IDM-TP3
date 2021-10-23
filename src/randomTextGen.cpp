@@ -64,14 +64,14 @@ void threadedExperiments(std::string_view target, std::string_view alphabet, uin
     std::cout << "Target = '" << target << "'\n";
 
     for (i = 0; i < threadCount; ++i) {
-        threads[i] = std::thread([&](std::string_view target, std::string_view alphabet, uint32_t seed) {
+        threads[i] = std::thread([&](uint32_t seed) {
             static std::mutex mutexPrint;
-            auto tries = randomStringTries(target, alphabet, seed);
+            uint64_t tries = randomStringTries(target, alphabet, seed);
             std::lock_guard<std::mutex> guard(mutexPrint);
             std::cout << "[" << seed << "] " << tries << "\n";
             results[seed] = tries;
             mutexPrint.unlock();
-        }, target, alphabet, i);
+        }, i);
     }
 
     for(auto& thread : threads) {
@@ -91,8 +91,8 @@ int main() {
     }
     asciiCharsetBuilder << "'" << " ";
 
-    threadedExperiments("GATTACA", "AGCT", 300);
-    threadedExperiments("le ha", asciiCharsetBuilder.str(), 10);
+    threadedExperiments("GATTACA", "AGCT", 1000);
+    // threadedExperiments("le ha", asciiCharsetBuilder.str(), 10);
 
     return EXIT_SUCCESS;
 }

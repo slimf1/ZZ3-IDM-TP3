@@ -25,6 +25,7 @@ make
 * montrer qu'on a le même résultats pour 10 replications avec & sans restoreStatus
 * On a testé avec les fichiers de conf séparés d'un tirage, les résultats étaient similaire car l'état du générateur restait quasiment le même... 
 Cependant, avec les fichiers de confs séparés d'un milliard, les résultats sont différents.
+* faire comparaison sync / threadé
 utiliser les mots répétabilité, stochastique, 
 
 slfakani@turing:/mnt/local.isima.fr/slfakani/ZZ3-IDM-TP3/build$ ./simPiThreads mtstatus_2_{0..9}.conf 3.14154 mtstatus_2_4.conf
