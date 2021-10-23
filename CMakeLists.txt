@@ -33,31 +33,39 @@ add_executable ( ${CMAKE_PROJECT_NAME}_q2_q3
 
 add_executable ( ${CMAKE_PROJECT_NAME}_q4
                 src/monteCarloPi.cpp
-                include/monteCarloPi.hpp
+                src/stats.cpp
                 src/monteCarloMain.cpp
+                include/monteCarloPi.hpp
+                include/stats.hpp
                 )
 
 add_executable ( simPi
                 src/monteCarloPi.cpp
-                include/monteCarloPi.hpp
                 src/simPi.cpp
+                src/stats.cpp
+                include/monteCarloPi.hpp
+                include/stats.hpp
                 )
 
 add_executable ( simPiThreads
                 src/monteCarloPi.cpp
-                include/monteCarloPi.hpp
                 src/simPiThreads.cpp
+                src/stats.cpp
+                include/monteCarloPi.hpp
+                include/stats.hpp
                 )
 
-add_executable ( peptideGen
-                src/gattaca.cpp
+add_executable ( randomTextGen
+                src/randomTextGen.cpp
+                src/stats.cpp
+                include/stats.hpp
                 )
 
 target_link_libraries(${CMAKE_PROJECT_NAME}_q2_q3 CLHEP-Random-2.1.0.0)
 target_link_libraries(${CMAKE_PROJECT_NAME}_q4 CLHEP-Random-2.1.0.0)
 target_link_libraries(simPi CLHEP-Random-2.1.0.0)
 target_link_libraries(simPiThreads CLHEP-Random-2.1.0.0)
-target_link_libraries(peptideGen CLHEP-Random-2.1.0.0)
+target_link_libraries(randomTextGen CLHEP-Random-2.1.0.0)
 
 # Build #-------------------------------------------------------------------------------------------
 
@@ -73,5 +81,5 @@ target_link_libraries ( simPi ${CMAKE_THREAD_LIBS_INIT} )
 set_target_properties ( simPiThreads PROPERTIES LINKER_LANGUAGE C )
 target_link_libraries ( simPiThreads ${CMAKE_THREAD_LIBS_INIT} )
 
-set_target_properties ( peptideGen PROPERTIES LINKER_LANGUAGE C )
-target_link_libraries ( peptideGen ${CMAKE_THREAD_LIBS_INIT} )
+set_target_properties ( randomTextGen PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( randomTextGen ${CMAKE_THREAD_LIBS_INIT} )

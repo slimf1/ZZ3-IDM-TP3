@@ -38,11 +38,10 @@ void loadPiExperimentFromFile(uint64_t points, const std::string& engineStatusFi
     outputStream << piExperiment(points, engine) << " " << engineStatusFile << "\n";
 }
 
-pi_sim_result_t piReplications(uint64_t points, uint32_t replications) {
+stats_t piReplications(uint64_t points, uint32_t replications) {
 
     std::vector<double> results(replications);
     CLHEP::MTwistEngine engine;
-    pi_sim_result_t stats;
     std::stringstream ss;
     uint32_t i;
 
@@ -54,18 +53,14 @@ pi_sim_result_t piReplications(uint64_t points, uint32_t replications) {
         std::cout << "Restoring status of " << ss.str() << "\n";
         engine.restoreStatus(ss.str().c_str());
 
-        std::cout << "Exp:" << "\n";
         // Résultat de l'expérience
+        std::cout << "Exp:" << "\n";
         results[i] = piExperiment(points, engine);
 
-        // If verbose... ? 
         std::cout << "Exp[" << i << "]: " << results[i] << "\n";
     }
 
-    stats.mean = std::accumulate(results.begin(), results.end(), 0.0) / 
-                    static_cast<double>(results.size());
-
-    return stats;
+    return resultsStats(results);
 }
 
 } // namespace idm
