@@ -45,12 +45,21 @@ uint64_t randomStringTries(std::string_view target, std::string_view alphabet, i
     return count;
 }
 
+/**
+ * Réalise plusieurs expériences en parallèle puis affiche
+ * la moyenne et l'écart-type des résultats obtenus.
+ * 
+ * @param target La chaîne à obtenir de façon aléatoire
+ * @param alphabet Les caractères disponibles
+ * @param threadCount Le nombre de threads et donc d'expériences
+ *                    à utiliser 
+ */
 void threadedExperiments(std::string_view target, std::string_view alphabet, uint32_t threadCount) {
     
-    std::vector<std::thread> threads(threadCount);
-    uint32_t i;
-    std::vector<double> results(threadCount);
-    idm::stats_t experimentResults;
+    std::vector<std::thread> threads(threadCount); // Threads
+    uint32_t i;                                    // Indice du thread
+    std::vector<double> results(threadCount);      // Résultats des expériences
+    idm::stats_t experimentResults;                // Moyenne et écart-type obtenus
 
     std::cout << "Target = '" << target << "'\n";
 

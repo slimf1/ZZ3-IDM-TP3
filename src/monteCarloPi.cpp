@@ -8,8 +8,11 @@
 namespace idm {
 
 /**
- * 
- * 
+ * Expérience de Monte Carlo pour le calcul de Pi.
+ *
+ * @param points Le nombre de points à utiliser
+ * @param engine PRNG
+ * @return Une estimation de Pi
  */
 double piExperiment(uint64_t points, CLHEP::HepRandomEngine& engine) {
     
@@ -30,6 +33,17 @@ double piExperiment(uint64_t points, CLHEP::HepRandomEngine& engine) {
     return 4 * inCircle / static_cast<double>(points);
 }
 
+/**
+ * Réalise une expérience de Monte Carlo pour calculer Pi
+ * à partir d'un état pré-défini.
+ * 
+ * @param points Le nombre de points à utiliser 
+ *               dans une simulation
+ * @param engineStatusFile Le fichier contenant l'état 
+ *                         du générateur
+ * @param outputStream Le flux de sortie pour le résultat
+ *                     de l'expérience
+ */
 void loadPiExperimentFromFile(uint64_t points, const std::string& engineStatusFile, std::ostream& outputStream) {
     
     CLHEP::MTwistEngine engine;
@@ -38,12 +52,22 @@ void loadPiExperimentFromFile(uint64_t points, const std::string& engineStatusFi
     outputStream << piExperiment(points, engine) << " " << engineStatusFile << "\n";
 }
 
+/**
+ * Réalise plusieurs réplications d'une expérience de
+ * Monte Carlo pour estimer Pi.
+ * 
+ * @param points Le nombre de points à utiliser dans 
+ *               une expérience
+ * @param replications Le nombre de réplications à réaliser
+ * @return Un enregistrement contenant moyenne et écart-type
+ *         des expériences réalisées
+ */
 stats_t piReplications(uint64_t points, uint32_t replications) {
 
-    std::vector<double> results(replications);
-    CLHEP::MTwistEngine engine;
-    std::stringstream ss;
-    uint32_t i;
+    std::vector<double> results(replications); // Résultats des expériences
+    CLHEP::MTwistEngine engine;                // PRNG
+    std::stringstream ss;                      // Flux pour le nom de fichier
+    uint32_t i;                                // Indice de la réplication courante
 
     for(i = 0u; i < replications; ++i) {
 
