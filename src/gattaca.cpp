@@ -1,93 +1,68 @@
-#include "monteCarloPi.hpp"
 #include <iostream>
+#include <set>
+#include <vector>
+#include <thread>
 #include "CLHEP/Random/Randomize.h"
+#include "monteCarloPi.hpp"
 
-
-char peptideGen(CLHEP::HepRandomEngine & engine){
+char randomCharFromString(std::string_view alphabet, CLHEP::HepRandomEngine& engine) {
     CLHEP::RandFlat aFlat(engine);
+    return alphabet[aFlat.fireInt(0, alphabet.length())];
+}
+
+/* Retourne le nombre d'essais pour obtenir une phrase aléatoirement */
+uint64_t randomStringTries(std::string_view target, std::string_view alphabet, int seed) {
     
-    double x = aFlat.fire();
-    double distrib[] = {0.25, 0.5, 0.75, 1};
-    char chars[] = {'A', 'G', 'T', 'C'};
-
-    uint16_t i = 0;
-    while(i < 4 && x > distrib[i]){
-        i++;
-    }
-    return chars[i];
-}
-
-uint64_t Func1(const std::string & target, CLHEP::HepRandomEngine & engine){
+    CLHEP::MTwistEngine engine(seed);
     std::stringstream ss;
-    uint64_t count = 0;
-    do{
-        ss.str(""); 
-        for(uint16_t i=0; i<7; i++){
-            ss << peptideGen(engine);
+    uint64_t count = 0u;
+    const size_t targetSize = target.length(); 
+
+    do {
+        ss.str(""); // Réinit. du stream
+        for(uint32_t i = 0u; i < targetSize; ++i) {
+            ss << randomCharFromString(alphabet, engine);
         }
-        count++;
-        // if(count%100==0){
-        //     std::cout << "\t" << count << ss.str() << "\n";
+        ++count;
+        // if (count % 1000 == 0) {
+        //     std::cout << ss.str() << "\n";
         // }
-    }while(ss.str() != target);
+    } while (ss.str() != target);
 
     return count;
 }
-
-
-char asciiGen(CLHEP::HepRandomEngine & engine){
-    CLHEP::RandFlat aFlat(engine);
-    double x = aFlat.fire();
-    // [0,1] - > [65,122]
-    char c = static_cast<int>(x * 57 + 65);
-    // std::cout << x << " " << x * 61 + 65 << "\n";
-    // std::cout << static_cast<int>(x * 61 + 65) << " "<< c << "\n"
-    return c;
-}
-
-
-
-
-
-uint64_t Func2(const std::string & target, CLHEP::HepRandomEngine & engine, uint16_t targetSize){
-    std::stringstream ss;
-    uint64_t count = 0;
-    do{
-        ss.str(""); 
-        for(uint64_t i=0; i<targetSize; i++){
-            ss << asciiGen(engine);
-        }
-        count++;
-        if(count%10000==0){
-            std::cout << "\t" << count/10000 << "\n";
-        }
-    }while(ss.str() != target);
-    std::cout << "\n\n\n" << ss.str() << "\n";
-    return count;
-}
-
-
 
 int main() {
-    CLHEP::MTwistEngine mtEngine;
-    uint64_t N = 5e3+10;
-    // uint64_t summ = 0;
-    // uint64_t nb;
+    const int threadCount = 10;
+    std::stringstream asciiCharsetBuilder;
+    std::string asciiCharset;
+    std::vector<std::thread> threads(threadCount);
 
-    // Gen of GATTACA
-    // for(uint64_t i=0; i<N; i++){
-    //     nb = Func1("GATTACA", mtEngine, 7);
-    //     // std::cout << nb << "\n";
-    //     summ+=nb;
-    // }
-    // std::cout << static_cast<double>(summ)/N << "\n";
+    for(char c = 'a'; c <= 'z'; ++c) {
+        asciiCharsetBuilder << c;
+    }
+    asciiCharsetBuilder << "'" << " ";
+    asciiCharset = asciiCharsetBuilder.str();
 
-    // Gen of ascii char
-    std::string s = "Le hasard n’écrit pas de programmes ou de gènes";
-    for(uint64_t i=0; i<1; i++){
-        Func2(s, mtEngine, 47);
+    for(int i = 0; i < 100; ++i) {
+        // std::cout << randomStringTries("GATTACA", "AGCT") << "\n";
     }
 
-    
+    for(int i = 0; i < 1; ++i) {
+        // std::cout << randomStringTries("le hasard n'ecrit pas de programme ou de genes", asciiCharset);
+    }
 
+    for(int i = 0; i < threadCount; ++i) {
+        // Init avec un fichier différent
+        // threads[i] = std::thread(randomStringTries, "le hasard n'ecrit pas de programme ou de genes", asciiCharset, i);
+        threads[i] = std::thread([&](std::string_view s, std::string_view alphabet, int seed) {
+            std::cout << randomStringTries(s, alphabet, seed) << "\n";
+        }, "le ha", asciiCharset, i);
+    }
+
+    for(auto& thread : threads) {
+        thread.join();
+    }
+
+    // std::cout << asciiCharset;
 }
