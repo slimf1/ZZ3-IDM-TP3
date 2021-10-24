@@ -2,6 +2,7 @@
 #include <set>
 #include <mutex>
 #include <vector>
+#include <chrono>
 #include <thread>
 #include "CLHEP/Random/Randomize.h"
 #include "monteCarloPi.hpp"
@@ -18,7 +19,6 @@ char randomCharFromString(std::string_view alphabet, CLHEP::HepRandomEngine& eng
     return alphabet[aFlat.fireInt(0, alphabet.length())];
 }
 
-/* Retourne le nombre d'essais pour obtenir une phrase aléatoirement */
 /**
  * Nombre d'essais pour obtenir une chaîne aléatoirement
  * 
@@ -84,6 +84,11 @@ void threadedExperiments(std::string_view target, std::string_view alphabet, uin
 }
 
 int main() {
+    using namespace std::chrono;
+
+    const uint64_t experimentsCount = 100u;
+    uint64_t i;
+
     std::stringstream asciiCharsetBuilder;
 
     for(char c = 'a'; c <= 'z'; ++c) {
@@ -91,7 +96,28 @@ int main() {
     }
     asciiCharsetBuilder << "'" << " ";
 
-    threadedExperiments("GATTACA", "AGCT", 1000);
+    // Threadé
+    
+    auto startThreaded = high_resolution_clock::now();
+    threadedExperiments("GATTACA", "AGCT", experimentsCount);
+    auto endThreaded = high_resolution_clock::now();
+    auto threadedDuration = duration_cast<milliseconds>(endThreaded - startThreaded);
+    std::cout << "Duration threaded experiments : " << threadedDuration.count() << "ms\n";
+
+    // Synchrone
+
+    std::vector<double> results(experimentsCount);
+    auto startSync = high_resolution_clock::now();
+    for(i = 0; i < experimentsCount; ++i) {
+        results[i] = randomStringTries("GATTACA", "AGCT", i);
+    }
+    auto endSync = high_resolution_clock::now();
+    auto syncDuration = duration_cast<milliseconds>(endSync - startSync);
+    auto resultsStats = idm::resultsStats(results);
+    std::cout << "Mean = " << resultsStats.mean << ", "
+              << "Stdev = " << resultsStats.stdDev << "\n"; 
+    std::cout << "Duration sync experiments : " << syncDuration.count() << "ms\n";
+
     // threadedExperiments("le ha", asciiCharsetBuilder.str(), 10);
 
     return EXIT_SUCCESS;
