@@ -86,7 +86,7 @@ void threadedExperiments(std::string_view target, std::string_view alphabet, uin
 int main() {
     using namespace std::chrono;
 
-    const uint64_t experimentsCount = 120u;
+    const uint64_t experimentsCount = 200u;
     uint64_t i;
     std::stringstream asciiCharsetBuilder;
 
@@ -109,6 +109,7 @@ int main() {
     auto startSync = high_resolution_clock::now();
     for(i = 0; i < experimentsCount; ++i) {
         results[i] = randomStringTries("GATTACA", "AGCT", i);
+        // std::cout << '[' << i << "] " << results[i] << '\n';
     }
     auto endSync = high_resolution_clock::now();
     auto syncDuration = duration_cast<milliseconds>(endSync - startSync);
