@@ -39,7 +39,7 @@ add_executable ( ${CMAKE_PROJECT_NAME}_q4
                 include/stats.hpp
                 )
 
-add_executable ( simPi
+add_executable ( ${CMAKE_PROJECT_NAME}_q5_files
                 src/monteCarloPi.cpp
                 src/simPi.cpp
                 src/stats.cpp
@@ -47,7 +47,7 @@ add_executable ( simPi
                 include/stats.hpp
                 )
 
-add_executable ( simPiThreads
+add_executable ( ${CMAKE_PROJECT_NAME}_q5_threads
                 src/monteCarloPi.cpp
                 src/simPiThreads.cpp
                 src/stats.cpp
@@ -55,7 +55,7 @@ add_executable ( simPiThreads
                 include/stats.hpp
                 )
 
-add_executable ( randomTextGen
+add_executable ( ${CMAKE_PROJECT_NAME}_q6
                 src/randomTextGen.cpp
                 src/stats.cpp
                 include/stats.hpp
@@ -63,9 +63,9 @@ add_executable ( randomTextGen
 
 target_link_libraries(${CMAKE_PROJECT_NAME}_q2_q3 CLHEP-Random-2.1.0.0)
 target_link_libraries(${CMAKE_PROJECT_NAME}_q4 CLHEP-Random-2.1.0.0)
-target_link_libraries(simPi CLHEP-Random-2.1.0.0)
-target_link_libraries(simPiThreads CLHEP-Random-2.1.0.0)
-target_link_libraries(randomTextGen CLHEP-Random-2.1.0.0)
+target_link_libraries(${CMAKE_PROJECT_NAME}_q5_files CLHEP-Random-2.1.0.0)
+target_link_libraries(${CMAKE_PROJECT_NAME}_q5_threads CLHEP-Random-2.1.0.0)
+target_link_libraries(${CMAKE_PROJECT_NAME}_q6 CLHEP-Random-2.1.0.0)
 
 # Build #-------------------------------------------------------------------------------------------
 
@@ -75,11 +75,11 @@ target_link_libraries ( ${CMAKE_PROJECT_NAME}_q2_q3 ${CMAKE_THREAD_LIBS_INIT} )
 set_target_properties ( ${CMAKE_PROJECT_NAME}_q4 PROPERTIES LINKER_LANGUAGE C )
 target_link_libraries ( ${CMAKE_PROJECT_NAME}_q4 ${CMAKE_THREAD_LIBS_INIT} )
 
-set_target_properties ( simPi PROPERTIES LINKER_LANGUAGE C )
-target_link_libraries ( simPi ${CMAKE_THREAD_LIBS_INIT} )
+set_target_properties ( ${CMAKE_PROJECT_NAME}_q5_files PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( ${CMAKE_PROJECT_NAME}_q5_files ${CMAKE_THREAD_LIBS_INIT} )
 
-set_target_properties ( simPiThreads PROPERTIES LINKER_LANGUAGE C )
-target_link_libraries ( simPiThreads ${CMAKE_THREAD_LIBS_INIT} )
+set_target_properties ( ${CMAKE_PROJECT_NAME}_q5_threads PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( ${CMAKE_PROJECT_NAME}_q5_threads ${CMAKE_THREAD_LIBS_INIT} )
 
-set_target_properties ( randomTextGen PROPERTIES LINKER_LANGUAGE C )
-target_link_libraries ( randomTextGen ${CMAKE_THREAD_LIBS_INIT} )
+set_target_properties ( ${CMAKE_PROJECT_NAME}_q6 PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( ${CMAKE_PROJECT_NAME}_q6 ${CMAKE_THREAD_LIBS_INIT} )

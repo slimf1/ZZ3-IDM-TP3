@@ -9,7 +9,6 @@ int main() {
     char filename[20];
     int i, j;
 
-    // Todo: utiliser stringstream
     for(i = 0; i < 10; ++i) {
         for(j = 0; j < 10; ++j) {
             std::cout <<  aFlat.fire() << std::endl;

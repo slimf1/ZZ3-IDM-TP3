@@ -86,9 +86,8 @@ void threadedExperiments(std::string_view target, std::string_view alphabet, uin
 int main() {
     using namespace std::chrono;
 
-    const uint64_t experimentsCount = 100u;
+    const uint64_t experimentsCount = 120u;
     uint64_t i;
-
     std::stringstream asciiCharsetBuilder;
 
     for(char c = 'a'; c <= 'z'; ++c) {
@@ -97,7 +96,7 @@ int main() {
     asciiCharsetBuilder << "'" << " ";
 
     // Threadé
-    
+
     auto startThreaded = high_resolution_clock::now();
     threadedExperiments("GATTACA", "AGCT", experimentsCount);
     auto endThreaded = high_resolution_clock::now();

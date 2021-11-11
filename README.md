@@ -27,6 +27,8 @@ make
 Cependant, avec les fichiers de confs séparés d'un milliard, les résultats sont différents.
 * faire comparaison sync / threadé
 utiliser les mots répétabilité, stochastique, 
+* nous avons défini plsieurs modules pour séparer la logique de l'appication. 
+Memes résultats : async/sync => repro
 
 slfakani@turing:/mnt/local.isima.fr/slfakani/ZZ3-IDM-TP3/build$ ./simPiThreads mtstatus_2_{0..9}.conf 3.14154 mtstatus_2_4.conf
 3.14161 mtstatus_2_7.conf
