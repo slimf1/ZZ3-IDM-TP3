@@ -47,7 +47,7 @@ add_executable ( ${CMAKE_PROJECT_NAME}_q5_files
                 include/stats.hpp
                 )
 
-add_executable ( ${CMAKE_PROJECT_NAME}_q5_threads
+add_executable ( ${CMAKE_PROJECT_NAME}_q6_a
                 src/monteCarloPi.cpp
                 src/simPiThreads.cpp
                 src/stats.cpp
@@ -55,7 +55,7 @@ add_executable ( ${CMAKE_PROJECT_NAME}_q5_threads
                 include/stats.hpp
                 )
 
-add_executable ( ${CMAKE_PROJECT_NAME}_q6
+add_executable ( ${CMAKE_PROJECT_NAME}_q6_b
                 src/randomTextGen.cpp
                 src/stats.cpp
                 include/stats.hpp
@@ -64,8 +64,8 @@ add_executable ( ${CMAKE_PROJECT_NAME}_q6
 target_link_libraries(${CMAKE_PROJECT_NAME}_q2_q3 CLHEP-Random-2.1.0.0)
 target_link_libraries(${CMAKE_PROJECT_NAME}_q4 CLHEP-Random-2.1.0.0)
 target_link_libraries(${CMAKE_PROJECT_NAME}_q5_files CLHEP-Random-2.1.0.0)
-target_link_libraries(${CMAKE_PROJECT_NAME}_q5_threads CLHEP-Random-2.1.0.0)
-target_link_libraries(${CMAKE_PROJECT_NAME}_q6 CLHEP-Random-2.1.0.0)
+target_link_libraries(${CMAKE_PROJECT_NAME}_q6_a CLHEP-Random-2.1.0.0)
+target_link_libraries(${CMAKE_PROJECT_NAME}_q6_b CLHEP-Random-2.1.0.0)
 
 # Build #-------------------------------------------------------------------------------------------
 
@@ -78,8 +78,8 @@ target_link_libraries ( ${CMAKE_PROJECT_NAME}_q4 ${CMAKE_THREAD_LIBS_INIT} )
 set_target_properties ( ${CMAKE_PROJECT_NAME}_q5_files PROPERTIES LINKER_LANGUAGE C )
 target_link_libraries ( ${CMAKE_PROJECT_NAME}_q5_files ${CMAKE_THREAD_LIBS_INIT} )
 
-set_target_properties ( ${CMAKE_PROJECT_NAME}_q5_threads PROPERTIES LINKER_LANGUAGE C )
-target_link_libraries ( ${CMAKE_PROJECT_NAME}_q5_threads ${CMAKE_THREAD_LIBS_INIT} )
+set_target_properties ( ${CMAKE_PROJECT_NAME}_q6_a PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( ${CMAKE_PROJECT_NAME}_q6_a ${CMAKE_THREAD_LIBS_INIT} )
 
-set_target_properties ( ${CMAKE_PROJECT_NAME}_q6 PROPERTIES LINKER_LANGUAGE C )
-target_link_libraries ( ${CMAKE_PROJECT_NAME}_q6 ${CMAKE_THREAD_LIBS_INIT} )
+set_target_properties ( ${CMAKE_PROJECT_NAME}_q6_b PROPERTIES LINKER_LANGUAGE C )
+target_link_libraries ( ${CMAKE_PROJECT_NAME}_q6_b ${CMAKE_THREAD_LIBS_INIT} )
