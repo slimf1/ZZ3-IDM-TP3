@@ -5,7 +5,7 @@ Troisième TP d'ingénierie des modèles et simulation, basé sur la bibliothèq
 
 
 ## Compilation
-Le projet requiert CMake version 2.8.9 ou plus pour la compilation.
+Le projet requiert CMake version 2.8.9 ou plus pour la compilation. Un compilateur qui supporte le C++17 est nécessaire.
 Dans le dossier racine du projet, on compilera le projet avec les commandes suivantes :
 ```bash
 mkdir build
