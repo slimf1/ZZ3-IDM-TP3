@@ -22,7 +22,7 @@ stats_t resultsStats(const std::vector<double>& results) {
     sum = std::accumulate(results.begin(), results.end(), 0.0);
     stats.mean = sum / results.size();
     acc = 0.0;
-    std::for_each(results.begin(), results.end(), [&, stats](double d) {
+    std::for_each(results.begin(), results.end(), [&acc, &stats](double d) {
         acc += (d - stats.mean) * (d - stats.mean);
     });
     stats.stdDev = std::sqrt(acc / (results.size() - 1));
